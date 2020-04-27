@@ -6,12 +6,24 @@ class AppClass extends Component {
   };
 
   handleIncrement = () => {
-    this.setState({ value: this.state.value + 1 });
+    this.setState(prevState => ({
+      value: prevState.value + 1
+    }));
   };
 
   handleDecrement = () => {
-    this.setState({ value: this.state.value - 1 });
+    this.setState(prevState => ({
+      value: prevState.value - 1
+    }));
   };
+
+  componentDidMount(){
+    document.title = `You clicked ${this.state.value} times`
+  };
+
+  componentDidUpdate(){
+    document.title = `You clicked ${this.state.value} times`
+  }
 
   render() {
     const { value } = this.state;
@@ -21,6 +33,8 @@ class AppClass extends Component {
         <button onClick={this.handleIncrement}>Increment</button>
         <button onClick={this.handleDecrement}>Decrement</button>
         <h1>{value}</h1>
+        <p>x: value of x</p>
+        <p>y: value of y</p>
       </div>
     );
   }

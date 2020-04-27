@@ -6,7 +6,8 @@ const App = () => {
   return(
     <div>
       <AppClass/>
-      <AppFunction/>
+      <hr/>
+      {<AppFunction/>}
     </div>
   )
 };
