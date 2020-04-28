@@ -4,6 +4,8 @@ const App = () => {
   const [value, setValue] = useState(0);
   const [isOn, setIsOn] = useState(false);
   const [position, setPosition] = useState({ x: null, y: null });
+  // initial state value based on an external API
+  const [status, setStatus] = useState(navigator.onLine)
 
   const handleIncrement = () => {
     setValue(prevState => prevState + 1);
@@ -22,14 +24,25 @@ const App = () => {
     setPosition({ x: evt.pageX, y: evt.pageY });
   };
 
+  const handleOnlineStatus = () => {
+    setStatus(true)
+  }
+
+  const handleOfflineStatus = () => {
+    setStatus(false)
+  }
+
   useEffect(() => {
     document.title = `You clicked ${value} times`;
     window.addEventListener('mousemove', handleMouseMove);
-
+    window.addEventListener('online', handleOnlineStatus )
+    window.addEventListener('offline', handleOfflineStatus);
     // clean up this side effect
     // this part is like componentWillUnmount
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('online', handleOnlineStatus )
+      window.removeEventListener('offline', handleOfflineStatus);
     };
   }, [value]);
 
@@ -52,6 +65,10 @@ const App = () => {
       <hr />
       <h3>Mouse Position</h3>
       {JSON.stringify(position, null, 2)}
+      <hr/>
+      <h3>Network Status</h3>
+      <p>You are now: <strong>{status ? "Online" : "Offline"}</strong></p>
+
     </Fragment>
   );
 };
