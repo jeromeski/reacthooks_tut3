@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 
 const App = () => {
   const [value, setValue] = useState(0);
+  const [isOn, setIsOn] = useState(false);
   const [position, setPosition] = useState({ x: null, y: null });
 
   const handleIncrement = () => {
@@ -10,6 +11,11 @@ const App = () => {
 
   const handleDecrement = () => {
     setValue(prevState => prevState - 1);
+  };
+
+  const handleToggle = evt => {
+    console.log(evt);
+    setIsOn(!isOn)
   };
 
   const handleMouseMove = evt => {
@@ -23,20 +29,30 @@ const App = () => {
     // clean up this side effect
     // this part is like componentWillUnmount
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-    }
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, [value]);
 
   return (
-    <div>
+    <Fragment>
       <h2>App Functional Component</h2>
+
       <button onClick={handleIncrement}>Increment</button>
       <button onClick={handleDecrement}>Decrement</button>
       <h3>{value}</h3>
+      <hr />
+      <div className='icon-wrapper' onClick={handleToggle}>
+        <span
+          className='icon-sun'
+          style={{
+            fontSize: '4rem',
+            color: isOn ? 'yellow' : 'darkgrey'
+          }}></span>
+      </div>
+      <hr />
       <h3>Mouse Position</h3>
       {JSON.stringify(position, null, 2)}
-    </div>
+    </Fragment>
   );
 };
-
 export default App;
