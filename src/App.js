@@ -6,15 +6,14 @@ import axios from 'axios';
 const App = () => {
   const [results, setResults] = useState([])
   
-  useEffect(() => {
-     axios
-      .get('http://hn.algolia.com/api/v1/search?query=reacthooks')
-      .then(res => {
-        console.log(res.data)
-        setResults(res.data.hits)
-      })
+  useEffect(() => { 
+     getResults()
   },[]);
 
+  const getResults = async () => {
+    const res = await axios.get('http://hn.algolia.com/api/v1/search?query=reacthooks')
+    setResults(res.data.hits)
+  }
   
 
   return (
