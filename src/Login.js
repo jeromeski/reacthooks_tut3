@@ -19,7 +19,7 @@ const Login = () => {
 
   return (
     <div
-      stle={{
+      style={{
         textAlign: 'center'
       }}
     >
