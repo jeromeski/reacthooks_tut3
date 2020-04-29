@@ -12,7 +12,9 @@ const Login = () => {
       username,
       password
     }
-    setUser(JSON.stringify(userData))
+    setUser(JSON.stringify(userData));
+    setUsername("");
+    setPassword("");
   }
 
   return (
