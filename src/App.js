@@ -9,7 +9,7 @@ const App = () => {
   
   useEffect(() => { 
      getResults()
-  },[query]);
+  },[]);
 
   const getResults = async () => {
     const res = await axios.get(`http://hn.algolia.com/api/v1/search?query=${query}`)
@@ -20,7 +20,12 @@ const App = () => {
   return (
     <>
       <div>
-      <input type='text' onChange={(evt) => setQuery(evt.target.value)}></input>
+      <input 
+        type='text' 
+        onChange={(evt) => setQuery(evt.target.value)}
+        value={query}
+        ></input>
+      <button onClick={getResults}>submit</button>
       <ul>
         {results.map(result => 
           <li key={result.objectID}>
